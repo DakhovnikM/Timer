@@ -10,15 +10,15 @@ namespace DigitalTimer
     public class Timer
     {
         public MainWindow mainWindow;
-        public DispatcherTimer dispatcherTimer;
+        private readonly DispatcherTimer dispatcherTimer;
 
-        int seconds;
-        int minutes;
-        int hours;
+        private int seconds;
+        private int minutes;
+        private int hours;
 
-        string ss;
-        string mm;
-        string hh;
+        private string ss;
+        private string mm;
+        private string hh;
 
         public Timer(MainWindow window)
         {
