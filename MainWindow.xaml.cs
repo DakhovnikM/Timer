@@ -29,10 +29,15 @@ namespace DigitalTimer
 
         private void BtnStart_Click(object sender, RoutedEventArgs e)
         {
-
+            timer.Start();
         }
 
         private void BtnStop_Click(object sender, RoutedEventArgs e)
+        {
+            timer.Stop();
+        }
+
+        private void BtnInterval_Click(object sender, RoutedEventArgs e)
         {
 
         }
