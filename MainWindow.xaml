@@ -10,11 +10,15 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Label Name="LabelTimer" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="166" Width="582" FontSize="72"/>
-        <Button Name="BtnStart" Content="Start" HorizontalAlignment="Left" Margin="630,10,0,0" VerticalAlignment="Top" Width="160" Height="74" FontSize="36" Click="BtnStart_Click"/>
-        <Button Name="BtnStop" Content="Stop" HorizontalAlignment="Left" Margin="630,102,0,0" VerticalAlignment="Top" Width="160" Height="74" FontSize="36" Click="BtnStop_Click"/>
-        <Label Name="LabelInterval" Content="" HorizontalAlignment="Left" Margin="10,226,0,0" VerticalAlignment="Top" Width="582" Height="198"/>
-        <Button Name="BtnInterval" Content="Interval" HorizontalAlignment="Left" Margin="630,281,0,0" VerticalAlignment="Top" Height="78" Width="160" Click="BtnInterval_Click" FontSize="36"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="77*"/>
+            <ColumnDefinition Width="23*"/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="0" Name="LabelTimer" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="166" Width="582" FontSize="72"/>
+        <Label Grid.Column="0" Name="LabelInterval" Content="" HorizontalAlignment="Left" Margin="10,226,0,0" VerticalAlignment="Top" Width="582" Height="198"/>
+        <Button Grid.Column="1" Name="BtnStart" Content="Start" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="160" Height="74" FontSize="36" Click="BtnStart_Click"/>
+        <Button Grid.Column="1" Name="BtnStop" Content="Stop" HorizontalAlignment="Left" Margin="10,102,0,0" VerticalAlignment="Top" Width="160" Height="74" FontSize="36" Click="BtnStop_Click"/>
+        <Button Grid.Column="1" Name="BtnInterval" Content="Interval" HorizontalAlignment="Left" Margin="10,281,0,0" VerticalAlignment="Top" Height="78" Width="160" Click="BtnInterval_Click" FontSize="36"/>
 
     </Grid>
 </Window>
