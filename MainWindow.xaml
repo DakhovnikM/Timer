@@ -10,9 +10,10 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Label Name="Label" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="166" Width="472" FontSize="72"/>
-        <Button Name="BtnStart" Content="Start" HorizontalAlignment="Left" Margin="520,10,0,0" VerticalAlignment="Top" Width="161" Height="74" FontSize="24" Click="BtnStart_Click"/>
-        <Button Name="BtnStop" Content="Stop" HorizontalAlignment="Left" Margin="521,102,0,0" VerticalAlignment="Top" Width="160" Height="74" FontSize="24" Click="BtnStop_Click"/>
+        <Label Name="LabelTimer" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="166" Width="582" FontSize="72"/>
+        <Button Name="BtnStart" Content="Start" HorizontalAlignment="Left" Margin="629,10,0,0" VerticalAlignment="Top" Width="161" Height="74" FontSize="24" Click="BtnStart_Click"/>
+        <Button Name="BtnStop" Content="Stop" HorizontalAlignment="Left" Margin="630,102,0,0" VerticalAlignment="Top" Width="160" Height="74" FontSize="24" Click="BtnStop_Click"/>
+        <Label Name="LabelInterval" Content="Label" HorizontalAlignment="Left" Margin="10,226,0,0" VerticalAlignment="Top" Width="582" Height="198"/>
 
     </Grid>
 </Window>
