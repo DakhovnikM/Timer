@@ -12,9 +12,9 @@ namespace DigitalTimer
         public MainWindow mainWindow;
         public DispatcherTimer dispatcherTimer;
 
-        int seconds = 55;
-        int minutes = 59;
-        int hours = 23;
+        int seconds;
+        int minutes;
+        int hours;
 
         string ss;
         string mm;
