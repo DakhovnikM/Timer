@@ -43,6 +43,15 @@ namespace DigitalTimer
 
             mainWindow.Label.Content = $"{hh}:{mm}:{ss}";
         }
-      
+
+        public void Start()
+        {
+            dispatcherTimer.Start();
+        }
+        public void Stop()
+        {
+            dispatcherTimer.Stop();
+        }
+
     }
 }
