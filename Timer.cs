@@ -41,7 +41,7 @@ namespace DigitalTimer
             hours = hours < 24 ? hours : 0;
             hh = hours < 10 ? $"0{hours}" : hours.ToString();
 
-            mainWindow.Label.Content = $"{hh}:{mm}:{ss}";
+            mainWindow.LabelTimer.Content = $"{hh}:{mm}:{ss}";
         }
 
         public void Start()
