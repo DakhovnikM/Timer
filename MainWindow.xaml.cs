@@ -26,6 +26,7 @@ namespace DigitalTimer
             InitializeComponent();
             timer = new Timer(this);
             BtnStop.IsEnabled = false;
+            BtnInterval.IsEnabled = false;
         }
 
         private void BtnStart_Click(object sender, RoutedEventArgs e)
@@ -33,6 +34,7 @@ namespace DigitalTimer
             timer.Start();
             BtnStart.IsEnabled = false;
             BtnStop.IsEnabled = true;
+            BtnInterval.IsEnabled = true;
         }
 
         private void BtnStop_Click(object sender, RoutedEventArgs e)
