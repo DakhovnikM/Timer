@@ -11,46 +11,40 @@ namespace DigitalTimer
     {
         public MainWindow mainWindow;
         private readonly DispatcherTimer dispatcherTimer;
+        private DateTime startTime;
 
-        private int seconds;
-        private int minutes;
-        private int hours;
+        private TimeSpan milliSecond;
 
-        private string ss;
-        private string mm;
-        private string hh;
-
+        private string ms;
+        
         public Timer(MainWindow window)
         {
             mainWindow = window;
 
-            dispatcherTimer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 1) };
+            dispatcherTimer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 0, 0, 1) };
             dispatcherTimer.Tick += Timer_TickSub;
         }
 
         private void Timer_TickSub(object sender, EventArgs e)
         {
-            seconds = seconds < 59 ? seconds + 1 : 0;
-            ss = seconds < 10 ? $"0{seconds}" : seconds.ToString();
-
-            minutes = seconds % 60 == 0 ? minutes + 1 : minutes;
-            minutes = minutes < 60 ? minutes : 0;
-            mm = minutes < 10 ? $"0{minutes}" : minutes.ToString();
-
-            hours = seconds % 3600 == 0 ? hours + 1 : hours;
-            hours = hours < 24 ? hours : 0;
-            hh = hours < 10 ? $"0{hours}" : hours.ToString();
-
-            mainWindow.LabelTimer.Content = $"{hh}:{mm}:{ss}";
+            milliSecond = DateTime.Now - startTime;
+            ms = milliSecond.TotalMilliseconds.ToString("00:00:00:000");
+            mainWindow.LabelTimer.Content = ms;
         }
 
         public void Start()
         {
+            startTime = DateTime.Now;
             dispatcherTimer.Start();
         }
         public void Stop()
         {
             dispatcherTimer.Stop();
+        }
+
+        public string GetInterval()
+        {
+            return ms;
         }
 
     }
