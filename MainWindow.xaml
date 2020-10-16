@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DigitalTimer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="450">
+        Title="MainWindow" Height="500" Width="460">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -14,8 +14,8 @@
             <ColumnDefinition Width="70*"/>
             <ColumnDefinition Width="30*"/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Column="0" Name="LabelTimer" Content="00:00:00" Margin="10,10,10,0" FontSize="58" BorderBrush="Black" BorderThickness="1" Height="120" VerticalAlignment="Top" FontStyle="Normal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Label Grid.Column="0" Name="LabelInterval" Content="" Margin="10,145,10,10" BorderBrush="Black" BorderThickness="1" FontSize="22" ScrollViewer.CanContentScroll="True"/>
+        <Label Grid.Column="0" Name="LabelTimer" Content="00:00:00:000" Margin="10,10,10,0" FontSize="50" BorderBrush="Black" BorderThickness="1" Height="120" VerticalAlignment="Top" FontStyle="Normal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Grid.Column="0" Name="LabelInterval" Content="" Margin="10,145,10,10" BorderBrush="Black" BorderThickness="1" FontSize="18" ScrollViewer.CanContentScroll="True"/>
         <Button Grid.Column="1" Name="BtnStart" Content="Start" Margin="10,10,14,0" VerticalAlignment="Top" Height="50" FontSize="24" Click="BtnStart_Click" Background="#FF95D193"/>
         <Button Grid.Column="1" Name="BtnStop" Content="Stop" Margin="10,80,14,0" VerticalAlignment="Top" Height="50" FontSize="24" Click="BtnStop_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         <Button Grid.Column="1" Name="BtnInterval" Content="Interval" Margin="10,171,14,0" VerticalAlignment="Top" Height="194" Click="BtnInterval_Click" FontSize="24"/>

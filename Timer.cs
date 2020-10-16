@@ -16,7 +16,7 @@ namespace DigitalTimer
         private TimeSpan milliSecond;
 
         private string ms;
-        
+
         public Timer(MainWindow window)
         {
             mainWindow = window;
