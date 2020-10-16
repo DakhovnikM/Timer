@@ -22,10 +22,10 @@ namespace DigitalTimer
             mainWindow = window;
 
             dispatcherTimer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 0, 0, 1) };
-            dispatcherTimer.Tick += Timer_TickSub;
+            dispatcherTimer.Tick += Timer_Tick;
         }
 
-        private void Timer_TickSub(object sender, EventArgs e)
+        private void Timer_Tick(object sender, EventArgs e)
         {
             milliSecond = DateTime.Now - startTime;
             ms = milliSecond.TotalMilliseconds.ToString("00:00:00:000");
