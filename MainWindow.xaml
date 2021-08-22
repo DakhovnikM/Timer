@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:DigitalTimer"
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="460">
+    <Window.DataContext>
+        <local:Timer/>
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -14,12 +17,72 @@
             <ColumnDefinition Width="70*"/>
             <ColumnDefinition Width="30*"/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Column="0" Name="LabelTimer" Content="00:00:00:000" Margin="10,10,10,0" FontSize="50" BorderBrush="Black" BorderThickness="1" Height="120" VerticalAlignment="Top" FontStyle="Normal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Label Grid.Column="0" Name="LabelInterval" Content="" Margin="10,145,10,10" BorderBrush="Black" BorderThickness="1" FontSize="18" ScrollViewer.CanContentScroll="True"/>
-        <Button Grid.Column="1" Name="BtnStart" Content="Start" Margin="10,10,14,0" VerticalAlignment="Top" Height="50" FontSize="24" Click="BtnStart_Click" Background="#FF95D193"/>
-        <Button Grid.Column="1" Name="BtnStop" Content="Stop" Margin="10,80,14,0" VerticalAlignment="Top" Height="50" FontSize="24" Click="BtnStop_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button Grid.Column="1" Name="BtnInterval" Content="Interval" Margin="10,171,14,0" VerticalAlignment="Top" Height="194" Click="BtnInterval_Click" FontSize="24"/>
-        <Button Grid.Column="1" Name="BtnClear" Content="Clear" Margin="10,383,14,23" FontSize="36" Background="#FFE8A2A2" Click="BtnClear_Click"/>
-
+        <Label 
+            Grid.Column="0" 
+            Name="LabelTimer" 
+            Content="{Binding TimerContent}"
+            Margin="10,10,10,0" 
+            FontSize="50" 
+            BorderBrush="Black" 
+            BorderThickness="1" 
+            Height="120" 
+            VerticalAlignment="Top" 
+            FontStyle="Normal" 
+            HorizontalContentAlignment="Center" 
+            VerticalContentAlignment="Center"/>
+        <ListView 
+            Grid.Column="0" 
+            Name="LabelInterval" 
+            ItemsSource="{Binding IntervalContent}"
+            Margin="10,145,10,10" 
+            BorderBrush="Black" 
+            BorderThickness="1" 
+            FontSize="18" 
+            ScrollViewer.CanContentScroll="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button 
+            Grid.Column="1" 
+            Name="BtnStart" 
+            Command="{Binding StartCommand}"
+            Content="Start" 
+            Margin="10,10,14,0" 
+            VerticalAlignment="Top" 
+            Height="50" 
+            FontSize="24" 
+            Background="#FF95D193"/>
+        <Button 
+            Grid.Column="1" 
+            Name="BtnStop"
+            Command="{Binding StopCommand}"
+            Content="Stop" 
+            Margin="10,80,14,0" 
+            VerticalAlignment="Top" 
+            Height="50" 
+            FontSize="24" 
+            Click="BtnStop_Click" 
+            HorizontalContentAlignment="Center" 
+            VerticalContentAlignment="Center"/>
+        <Button 
+            Grid.Column="1" 
+            Name="BtnInterval"
+            Command="{Binding GetIntervalCommand}"
+            Content="Interval" 
+            Margin="10,171,14,0" 
+            VerticalAlignment="Top" 
+            Height="194" 
+            FontSize="24"/>
+        <Button 
+            Grid.Column="1" 
+            Name="BtnClear" 
+            Content="Clear" 
+            Margin="10,383,14,23" 
+            FontSize="36" 
+            Background="#FFE8A2A2" 
+            Command="{Binding ClearCommand}"/>
     </Grid>
 </Window>
