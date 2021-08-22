@@ -13,19 +13,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DigitalTimer
+namespace Timer
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Timer timer;
+        private MainWindowViewModel timer;
 
         public MainWindow()
         {
             InitializeComponent();
-            timer = new Timer();
+            timer = new MainWindowViewModel();
             DataContext = timer;
         }
     }

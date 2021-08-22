@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace DigitalTimer
+namespace Timer
 {
     public class Command : ICommand
     {

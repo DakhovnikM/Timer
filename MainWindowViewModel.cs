@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Timer;
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -9,9 +11,9 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Threading;
 
-namespace DigitalTimer
+namespace Timer
 {
-    public class Timer : INotifyPropertyChanged
+    public class MainWindowViewModel : INotifyPropertyChanged
     {
         #region Fields
         private DateTime startTime;
@@ -20,7 +22,7 @@ namespace DigitalTimer
 
         private double ms;
 
-        private string timerContent; 
+        private string timerContent;
         #endregion
 
         #region Properties
@@ -106,7 +108,7 @@ namespace DigitalTimer
         #endregion
 
         #region Ctor
-        public Timer()
+        public MainWindowViewModel()
         {
             ClearCommand = new Command(ClearInterval);
             GetIntervalCommand = new Command(GetInterval);
