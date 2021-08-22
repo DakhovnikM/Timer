@@ -9,17 +9,23 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Threading;
 
-
 namespace DigitalTimer
 {
     public class Timer : INotifyPropertyChanged
     {
-        private readonly DispatcherTimer dispatcherTimer;
+        #region Fields
         private DateTime startTime;
 
         private TimeSpan milliSecond;
 
-        private string timerContent;
+        private double ms;
+
+        private string timerContent; 
+        #endregion
+
+        #region Properties
+        private DispatcherTimer DispatcherTimer { get; }
+
         public string TimerContent
         {
             get { return timerContent; }
@@ -30,33 +36,76 @@ namespace DigitalTimer
             }
         }
 
-        public ObservableCollection<string> IntervalContent { get; }
+        private int Count { get; set; }
 
-        private int count;
-        public int Count
+        private double Difference { get; set; }
+
+        public ObservableCollection<string> IntervalContent { get; }
+        #endregion
+
+        #region BtnIsEnabled
+        private bool btnStopIsEnabled;
+        public bool BtnStopIsEnabled
         {
-            get { return count; }
+            get { return btnStopIsEnabled; }
             set
             {
-                count = value;
-                //OnPropertyChanged("Count");
+                btnStopIsEnabled = value;
+                OnPropertyChanged("BtnStopIsEnabled");
             }
         }
 
-        private string ms;
+        private bool btnStartIsEnabled;
+        public bool BtnStartIsEnabled
+        {
+            get { return btnStartIsEnabled; }
+            set
+            {
+                btnStartIsEnabled = value;
+                OnPropertyChanged("BtnStartIsEnabled");
+            }
+        }
 
+        private bool btnIntervalIsEnabled;
+        public bool BtnIntervalIsEnabled
+        {
+            get { return btnIntervalIsEnabled; }
+            set
+            {
+                btnIntervalIsEnabled = value;
+                OnPropertyChanged("BtnIntervalIsEnabled");
+            }
+        }
+
+        private bool btnClearIsEnabled;
+        public bool BtnClearIsEnabled
+        {
+            get { return btnClearIsEnabled; }
+            set
+            {
+                btnClearIsEnabled = value;
+                OnPropertyChanged("BtnClearIsEnabled");
+            }
+        }
+        #endregion
+
+        #region INotifyProp
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged([CallerMemberName] string prop = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
+        #endregion
 
+        #region Commands
         public Command ClearCommand { get; }
         public Command GetIntervalCommand { get; }
         public Command StartCommand { get; }
         public Command StopCommand { get; }
+        #endregion
 
+        #region Ctor
         public Timer()
         {
             ClearCommand = new Command(ClearInterval);
@@ -66,38 +115,55 @@ namespace DigitalTimer
 
             IntervalContent = new ObservableCollection<string>();
             TimerContent = "00:00:00:000";
-            dispatcherTimer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 0, 0, 1) };
-            dispatcherTimer.Tick += Timer_Tick;
+            DispatcherTimer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 0, 0, 1) };
+            DispatcherTimer.Tick += Timer_Tick;
+
+            BtnStartIsEnabled = true;
         }
+        #endregion
 
         private void ClearInterval(object obj)
         {
             Count = 0;
             IntervalContent.Clear();
+            BtnClearIsEnabled = false;
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
             milliSecond = DateTime.Now - startTime;
-            ms = milliSecond.TotalMilliseconds.ToString("00:00:00:000", CultureInfo.InvariantCulture);
-            TimerContent = ms;
+            ms = milliSecond.TotalMilliseconds;
+            TimerContent = ms.ToString("00:00:00:000", CultureInfo.InvariantCulture);
         }
 
         public void Start(object obj)
         {
             startTime = DateTime.Now;
-            dispatcherTimer.Start();
+            DispatcherTimer.Start();
+            BtnStopIsEnabled = true;
+            BtnIntervalIsEnabled = true;
+            BtnStartIsEnabled = false;
         }
 
         public void Stop(object obj)
         {
-            dispatcherTimer.Stop();
+            DispatcherTimer.Stop();
+            BtnStartIsEnabled = true;
+            BtnStopIsEnabled = false;
+            BtnIntervalIsEnabled = false;
         }
 
         public void GetInterval(object obj)
         {
             Count++;
-            IntervalContent.Add($"{Count}. {ms}");
+            BtnClearIsEnabled = true;
+
+            var res = Count == 1
+                ? "00:00:000"
+                : (ms - Difference).ToString("00:00:000", CultureInfo.InvariantCulture);
+
+            IntervalContent.Add($"{Count}. {TimerContent}  (+{res})");
+            Difference = ms;
         }
     }
 }
