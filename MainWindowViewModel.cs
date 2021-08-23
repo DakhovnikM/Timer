@@ -23,7 +23,6 @@ namespace Timer
 
         private readonly PeriodicTimer periodicTimer;
         private CancellationTokenSource cancellationTokenSorce;
-        private CancellationToken token;
         private double ms;
 
         private string timerContent;
@@ -160,9 +159,8 @@ namespace Timer
         {
             //startTime = DateTime.Now;
             //DispatcherTimer.Start();
-            cancellationTokenSorce = new CancellationTokenSource();
-            token = cancellationTokenSorce.Token;
-            PeriodicTimerTick(token);
+            cancellationTokenSorce = new ();
+            PeriodicTimerTick(cancellationTokenSorce.Token);
 
             BtnStopIsEnabled = true;
             BtnIntervalIsEnabled = true;
@@ -172,6 +170,7 @@ namespace Timer
         public void Stop(object obj)
         {
             cancellationTokenSorce.Cancel();
+            cancellationTokenSorce.Dispose();
             //DispatcherTimer.Stop();
             BtnStartIsEnabled = true;
             BtnStopIsEnabled = false;
