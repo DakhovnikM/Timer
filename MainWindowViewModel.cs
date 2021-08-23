@@ -10,6 +10,8 @@ using System.Text;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Threading;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Timer
 {
@@ -17,9 +19,11 @@ namespace Timer
     {
         #region Fields
         private DateTime startTime;
-
         private TimeSpan milliSecond;
 
+        private readonly PeriodicTimer periodicTimer;
+        private CancellationTokenSource cancellationTokenSorce;
+        private CancellationToken token;
         private double ms;
 
         private string timerContent;
@@ -117,8 +121,10 @@ namespace Timer
 
             IntervalContent = new ObservableCollection<string>();
             TimerContent = "00:00:00:000";
-            DispatcherTimer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 0, 0, 1) };
-            DispatcherTimer.Tick += Timer_Tick;
+            //DispatcherTimer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 0, 0, 1) };
+            //DispatcherTimer.Tick += Timer_Tick;
+            periodicTimer = new PeriodicTimer(TimeSpan.FromSeconds(1));
+            
 
             BtnStartIsEnabled = true;
         }
@@ -131,17 +137,33 @@ namespace Timer
             BtnClearIsEnabled = false;
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
+        //private void Timer_Tick(object sender, EventArgs e)
+        //{
+        //    milliSecond = DateTime.Now - startTime;
+        //    ms = milliSecond.TotalMilliseconds;
+        //    TimerContent = ms.ToString("00:00:00:000", CultureInfo.InvariantCulture);
+        //}
+
+        private async Task PeriodicTimerTick(CancellationToken token)
         {
-            milliSecond = DateTime.Now - startTime;
-            ms = milliSecond.TotalMilliseconds;
-            TimerContent = ms.ToString("00:00:00:000", CultureInfo.InvariantCulture);
+            var tick = 0;
+            while (await periodicTimer.WaitForNextTickAsync(token))
+            {
+                //milliSecond = DateTime.Now - startTime;
+                tick++;
+                TimerContent = tick.ToString("00:00:00:000", CultureInfo.InvariantCulture);
+                ms = tick;
+            }
         }
 
         public void Start(object obj)
         {
-            startTime = DateTime.Now;
-            DispatcherTimer.Start();
+            //startTime = DateTime.Now;
+            //DispatcherTimer.Start();
+            cancellationTokenSorce = new CancellationTokenSource();
+            token = cancellationTokenSorce.Token;
+            PeriodicTimerTick(token);
+
             BtnStopIsEnabled = true;
             BtnIntervalIsEnabled = true;
             BtnStartIsEnabled = false;
@@ -149,7 +171,8 @@ namespace Timer
 
         public void Stop(object obj)
         {
-            DispatcherTimer.Stop();
+            cancellationTokenSorce.Cancel();
+            //DispatcherTimer.Stop();
             BtnStartIsEnabled = true;
             BtnStopIsEnabled = false;
             BtnIntervalIsEnabled = false;
