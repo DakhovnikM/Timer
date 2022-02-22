@@ -1,10 +1,7 @@
 ﻿using System.Windows;
 
-namespace Timer;
+namespace TimerWPF;
 
-/// <summary>
-/// Interaction logic for App.xaml
-/// </summary>
 public partial class App : Application
 {
 }
