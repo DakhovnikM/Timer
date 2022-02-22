@@ -1,25 +1,83 @@
-﻿<Window x:Class="DigitalTimer.MainWindow"
+﻿<Window x:Class="Timer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DigitalTimer"
+        xmlns:local="clr-namespace:Timer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="450">
+        Title="MainWindow" Height="500" Width="460">
+    <Window.DataContext>
+        <local:MainWindowViewModel/>
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="70*"/>
             <ColumnDefinition Width="30*"/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Column="0" Name="LabelTimer" Content="00:00:00" Margin="10,10,10,0" FontSize="58" BorderBrush="Black" BorderThickness="1" Height="120" VerticalAlignment="Top" FontStyle="Normal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Label Grid.Column="0" Name="LabelInterval" Content="" Margin="10,145,10,10" BorderBrush="Black" BorderThickness="1" FontSize="22" ScrollViewer.CanContentScroll="True"/>
-        <Button Grid.Column="1" Name="BtnStart" Content="Start" Margin="10,10,14,0" VerticalAlignment="Top" Height="50" FontSize="24" Click="BtnStart_Click" Background="#FF95D193"/>
-        <Button Grid.Column="1" Name="BtnStop" Content="Stop" Margin="10,80,14,0" VerticalAlignment="Top" Height="50" FontSize="24" Click="BtnStop_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button Grid.Column="1" Name="BtnInterval" Content="Interval" Margin="10,171,14,0" VerticalAlignment="Top" Height="194" Click="BtnInterval_Click" FontSize="24"/>
-        <Button Grid.Column="1" Name="BtnClear" Content="Clear" Margin="10,383,14,23" FontSize="36" Background="#FFE8A2A2" Click="BtnClear_Click"/>
-
+        <TextBlock 
+            Grid.Column="0"
+            Grid.Row="0"
+            Name="LabelTimer" 
+            Text="{Binding TimerContent}"
+            FontSize="50" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center"/>
+        <ListView 
+            Grid.Column="0"
+            Grid.Row="1"
+            Grid.RowSpan="3"
+            Name="LabelInterval" 
+            ItemsSource="{Binding IntervalContent}"
+            FontSize="20" 
+            ScrollViewer.CanContentScroll="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding}"
+                           Padding="0"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button 
+            Grid.Column="1" 
+            Grid.Row="0"
+            Name="BtnStart" 
+            IsEnabled="{Binding BtnStartIsEnabled}"
+            Command="{Binding StartCommand}"
+            Content="Start" 
+            FontSize="24"
+            Background="#FF95D193"/>
+        <Button 
+            Grid.Column="1" 
+            Grid.Row="1"
+            Name="BtnStop"
+            IsEnabled="{Binding BtnStopIsEnabled}"
+            Command="{Binding StopCommand}"
+            Content="Stop" 
+            FontSize="24" 
+            HorizontalContentAlignment="Center" 
+            VerticalContentAlignment="Center"/>
+        <Button 
+            Grid.Column="1"
+            Grid.Row="2"
+            Name="BtnInterval"
+            IsEnabled="{Binding BtnIntervalIsEnabled}"
+            Command="{Binding GetIntervalCommand}"
+            Content="Interval" 
+            FontSize="24"/>
+        <Button 
+            Grid.Column="1" 
+            Grid.Row="3"
+            IsEnabled="{Binding BtnClearIsEnabled}"
+            Name="BtnClear" 
+            Content="Clear" 
+            FontSize="36" 
+            Background="#FFE8A2A2" 
+            Command="{Binding ClearCommand}"/>
     </Grid>
 </Window>
